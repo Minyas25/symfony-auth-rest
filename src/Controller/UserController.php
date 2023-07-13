@@ -20,10 +20,10 @@ class UserController extends AbstractController
     {
         return $this->json($this->repo->findAll());
     }
-    #[Route('/api/user/{email}/promote', methods: 'PATCH')]
-    public function promote(string $email, Request $request): JsonResponse
+    #[Route('/api/user/{id}/promote', methods: 'PATCH')]
+    public function promote(int $id, Request $request): JsonResponse
     {
-        $user = $this->repo->findByEmail($email);
+        $user = $this->repo->findById($id);
         if(!$user) {
             throw new NotFoundHttpException('User does not exist');
         }

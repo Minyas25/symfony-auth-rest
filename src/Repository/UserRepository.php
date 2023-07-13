@@ -32,6 +32,18 @@ class UserRepository
         return null;
     }
 
+    public function findById(int $id): ?User
+    {
+
+        $connection = Database::getConnection();
+        $query = $connection->prepare('SELECT * FROM user WHERE id=:id');
+        $query->bindValue(':id', $id);
+        $query->execute();
+        foreach ($query->fetchAll() as $line) {
+            return new User($line['email'], $line['password'], $line['role'], $line['id']);
+        }
+        return null;
+    }
 
     public function findAll(): array
     {
